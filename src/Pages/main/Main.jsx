@@ -1,11 +1,23 @@
-import React, { Component } from 'react';
-import PropTypes from "prop-types"
-import { Container, Row, Input, Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-import FilterMovieList from '../../Components/MovieList';
-import { getMoviesBySearch } from '../../Apis/MovieApi';
-import Loading from '../../Components/Loading';
-import Error from '../../Components/Alert/Error';
-import MovieGrid from '../../Components/MovieGrid';
+import React, {Component} from "react";
+import PropTypes from "prop-types";
+import {
+  Container,
+  Row,
+  Input,
+  Navbar,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+} from "reactstrap";
+import FilterMovieList from "../../Components/MovieList";
+import {getMoviesBySearch} from "../../Apis/MovieApi";
+import Loading from "../../Components/Loading";
+import Error from "../../Components/Alert/Error";
+import MovieGrid from "../../Components/MovieGrid";
+import {Icon} from "@iconify/react";
+import netflixIcon from "@iconify/icons-mdi/netflix";
+import Hero from './partials/Hero';
 
 class Main extends Component {
   state = {
@@ -21,24 +33,33 @@ class Main extends Component {
     typing: false,
     typingTimeout: 0,
     gridView: false,
-    gridData: []
+    gridData: [],
   };
 
   async componentDidMount() {
     try {
-      this.setState({ loading: true });
-      const firstCategories = await this.onFetchMovies("firstCategories", "s=star trek&type=series");
-      const secondCategories = await this.onFetchMovies("secondCategories", "s=star wars&type=movie");
-      const thirdCategories = await this.onFetchMovies("thirdCategories", "s=harry potter&type=movie");
+      this.setState({loading: true});
+      const firstCategories = await this.onFetchMovies(
+        "firstCategories",
+        "s=star trek&type=series"
+      );
+      const secondCategories = await this.onFetchMovies(
+        "secondCategories",
+        "s=star wars&type=movie"
+      );
+      const thirdCategories = await this.onFetchMovies(
+        "thirdCategories",
+        "s=harry potter&type=movie"
+      );
       this.setState({
         firstCategories,
         secondCategories,
         thirdCategories,
-        loading: false
-      })
+        loading: false,
+      });
     } catch (error) {
-      console.log('onFetchComments err: ', error);
-      this.onShowErrorMessage()
+      console.log("onFetchComments err: ", error);
+      this.onShowErrorMessage();
     }
   }
 
@@ -48,26 +69,26 @@ class Main extends Component {
       if (!data1.Response === "True") {
         return [];
       } else {
-        return data1.Search.sort((a, b) => parseInt(b.Year.slice(0, 4)) - parseInt(a.Year.slice(0, 4)));
+        return data1.Search.sort(
+          (a, b) => parseInt(b.Year.slice(0, 4)) - parseInt(a.Year.slice(0, 4))
+        );
       }
     } catch (err) {
-      console.log('onFetchComments err: ', err);
-      this.onShowErrorMessage()
+      console.log("onFetchComments err: ", err);
+      this.onShowErrorMessage();
     }
-  }
-
+  };
 
   onShowErrorMessage = () => {
-    this.setState({ hasErrors: true, loading: false });
+    this.setState({hasErrors: true, loading: false});
     setTimeout(this.onClearMessage, 5000);
-  }
+  };
 
   onClearMessage = () => {
-    this.setState({ hasErrors: false });
-  }
+    this.setState({hasErrors: false});
+  };
 
   searchChange = event => {
-
     if (this.state.typingTimeout) {
       clearTimeout(this.state.typingTimeout);
     }
@@ -77,35 +98,41 @@ class Main extends Component {
       typing: false,
       typingTimeout: setTimeout(() => {
         this.onSearchByText(this.state.searchString);
-      }, 3000)
+      }, 3000),
     });
   };
 
   onSearchByText = async text => {
     if (text !== "") {
       try {
-        this.setState({ loading: true });
+        this.setState({loading: true});
         const data = await getMoviesBySearch(`s=${text}`);
         if (data.Response === "False") {
-          this.setState({ loading: false, gridView: true, gridData: [] });
+          this.setState({loading: false, gridView: true, gridData: []});
         } else {
-          this.setState({ loading: false, gridView: true, gridData: data.Search.sort((a, b) => parseInt(b.Year.slice(0, 4)) - parseInt(a.Year.slice(0, 4))) });
+          this.setState({
+            loading: false,
+            gridView: true,
+            gridData: data.Search.sort(
+              (a, b) => parseInt(b.Year.slice(0, 4)) - parseInt(a.Year.slice(0, 4))
+            ),
+          });
         }
       } catch (err) {
-        console.log('onSearchByText err: ', err);
-        this.onShowErrorMessage()
+        console.log("onSearchByText err: ", err);
+        this.onShowErrorMessage();
       }
     } else {
       this.setState({
         gridView: false,
-        selectedCategory: 0
-      })
+        selectedCategory: 0,
+      });
     }
-  }
+  };
 
   onSelectCategory = selectedCategory => {
-    this.setState({ selectedCategory })
-  }
+    this.setState({selectedCategory});
+  };
 
   renderMovies = () => {
     const {
@@ -118,89 +145,153 @@ class Main extends Component {
       case 0:
         return (
           <>
-            <FilterMovieList label="Star Trek" history={this.props.history} data={firstCategories} />
-            <FilterMovieList label="Star Wars" history={this.props.history} data={secondCategories} />
-            <FilterMovieList label="Harry potter" history={this.props.history} data={thirdCategories} />
+            <FilterMovieList
+              label="Star Trek"
+              history={this.props.history}
+              data={firstCategories}
+            />
+            <FilterMovieList
+              label="Star Wars"
+              history={this.props.history}
+              data={secondCategories}
+            />
+            <FilterMovieList
+              label="Harry potter"
+              history={this.props.history}
+              data={thirdCategories}
+            />
           </>
         );
       case 1:
         return (
-          <FilterMovieList label="Star Trek" history={this.props.history} data={firstCategories} />
+          <FilterMovieList
+            label="Star Trek"
+            history={this.props.history}
+            data={firstCategories}
+          />
         );
       case 2:
         return (
-          <FilterMovieList label="Star Wars" history={this.props.history} data={secondCategories} />
+          <FilterMovieList
+            label="Star Wars"
+            history={this.props.history}
+            data={secondCategories}
+          />
         );
       case 3:
         return (
-          <FilterMovieList label="Harry potter" history={this.props.history} data={thirdCategories} />
+          <FilterMovieList
+            label="Harry potter"
+            history={this.props.history}
+            data={thirdCategories}
+          />
         );
       default:
         return (
           <>
-            <FilterMovieList label="Star Trek" history={this.props.history} data={firstCategories} />
-            <FilterMovieList label="Star Wars" history={this.props.history} data={secondCategories} />
-            <FilterMovieList label="Harry potter" history={this.props.history} data={thirdCategories} />
+            <FilterMovieList
+              label="Star Trek"
+              history={this.props.history}
+              data={firstCategories}
+            />
+            <FilterMovieList
+              label="Star Wars"
+              history={this.props.history}
+              data={secondCategories}
+            />
+            <FilterMovieList
+              label="Harry potter"
+              history={this.props.history}
+              data={thirdCategories}
+            />
           </>
         );
     }
-  }
+  };
 
   renderMovieGrid = () => {
-    const { gridData } = this.state;
-    return gridData.length > 0
-      ?
+    const {gridData} = this.state;
+    return gridData.length > 0 ? (
       <MovieGrid data={gridData} history={this.props.history} />
-      :
-      <div className="text-center text-white h-100">There is no movie that is matched.</div>
-  }
+    ) : (
+      <div className="text-center text-white h-100">
+        There is no movie that is matched.
+      </div>
+    );
+  };
 
   render() {
-    const {
-      hasErrors,
-      message,
-      loading,
-      searchString,
-      gridView
-    } = this.state;
+    const {hasErrors, message, loading, searchString, gridView} = this.state;
     return (
-      <div style={{ backgroundColor: "#2b2a25" }}>
-        <Navbar color="#2b2a25" light expand="md">
+      <div style={{backgroundColor: "#2b2a25"}}>
+        <Navbar dark expand="md">
           <Container className="pb-4">
-            <NavbarBrand href="/" style={{ color: "white" }}>React NetFlix</NavbarBrand>
+            <NavbarBrand href="/">
+              <Icon icon={netflixIcon} color="red" />
+            </NavbarBrand>
             <Nav className="mr-auto" navbar>
               <NavItem>
-                <NavLink href="#" onClick={() => this.onSelectCategory(0)} style={{ color: "white" }}>All</NavLink>
+                <NavLink
+                  href="#"
+                  onClick={() => this.onSelectCategory(0)}
+                  style={{color: "white"}}
+                >
+                  All
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#" onClick={() => this.onSelectCategory(1)} style={{ color: "white" }}>Star Trek</NavLink>
+                <NavLink
+                  href="#"
+                  onClick={() => this.onSelectCategory(1)}
+                  style={{color: "white"}}
+                >
+                  Star Trek
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#" onClick={() => this.onSelectCategory(2)} style={{ color: "white" }}>Star Wars</NavLink>
+                <NavLink
+                  href="#"
+                  onClick={() => this.onSelectCategory(2)}
+                  style={{color: "white"}}
+                >
+                  Star Wars
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#" onClick={() => this.onSelectCategory(3)} style={{ color: "white" }}>Harry potter</NavLink>
+                <NavLink
+                  href="#"
+                  onClick={() => this.onSelectCategory(3)}
+                  style={{color: "white"}}
+                >
+                  Harry potter
+                </NavLink>
               </NavItem>
             </Nav>
           </Container>
         </Navbar>
+        <Hero />
         <Container className="py-4">
-
           <Row>
-            <Input type="text" placeholder="Search movie" onChange={this.searchChange} value={searchString} />
+          <div className="ui icon input">
+            <Input
+              type="text"
+              placeholder="Search movie"
+              onChange={this.searchChange}
+              value={searchString}
+            />
+          </div>
           </Row>
           {hasErrors && <Error message={message} />}
           {loading && <Loading />}
           {gridView ? this.renderMovieGrid() : this.renderMovies()}
         </Container>
       </div>
-
     );
   }
 }
 
 Main.propTypes = {
-  history: PropTypes.any
+  history: PropTypes.any,
 };
 
 export default Main;
