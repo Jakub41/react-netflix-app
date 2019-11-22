@@ -1,0 +1,12 @@
+.movie-item {
+  cursor: pointer;
+  border: none;
+  flex: 1;
+  max-width: "25%";
+  user-select: none;
+}
+
+.movie-image {
+  width: "300px";
+  height: "500px";
+}
