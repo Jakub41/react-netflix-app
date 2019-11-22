@@ -45,7 +45,7 @@ class Main extends Component {
   onFetchMovies = async (key, search) => {
     try {
       const data1 = await getMoviesBySearch(search);
-      if (!data1.Response == "True") {
+      if (!data1.Response === "True") {
         return [];
       } else {
         return data1.Search.sort((a, b) => parseInt(b.Year.slice(0, 4)) - parseInt(a.Year.slice(0, 4)));
@@ -77,16 +77,16 @@ class Main extends Component {
       typing: false,
       typingTimeout: setTimeout(() => {
         this.onSearchByText(this.state.searchString);
-      }, 1000)
+      }, 3000)
     });
   };
 
   onSearchByText = async text => {
-    if (text != "") {
+    if (text !== "") {
       try {
         this.setState({ loading: true });
         const data = await getMoviesBySearch(`s=${text}`);
-        if (data.Response == "False") {
+        if (data.Response === "False") {
           this.setState({ loading: false, gridView: true, gridData: [] });
         } else {
           this.setState({ loading: false, gridView: true, gridData: data.Search.sort((a, b) => parseInt(b.Year.slice(0, 4)) - parseInt(a.Year.slice(0, 4))) });
