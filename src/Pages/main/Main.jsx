@@ -5,6 +5,7 @@ import {
   Row,
   Input,
   Navbar,
+  NavbarToggler,
   NavbarBrand,
   Nav,
   NavItem,
@@ -229,6 +230,7 @@ class Main extends Component {
             <NavbarBrand href="/">
               <Icon icon={netflixIcon} color="red" />
             </NavbarBrand>
+            <NavbarToggler />
             <Nav className="mr-auto" navbar>
               <NavItem>
                 <NavLink

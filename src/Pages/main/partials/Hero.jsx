@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {Jumbotron} from "reactstrap";
-import {FaPause} from "react-icons/fa";
 
 export default class Hero extends Component {
   render() {

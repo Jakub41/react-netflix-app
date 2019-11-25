@@ -1,16 +1,18 @@
-import React, { Component } from "react";
-import { Row, Input, Button, Modal, ModalBody, ModalFooter } from "reactstrap";
+import React, {Component} from "react";
+import {Row, Input, Button, Modal, ModalBody, ModalFooter} from "reactstrap";
 import PropTypes from "prop-types";
 import Loading from "../Loading";
 import CommentApi from "../../Apis/CommentApi";
+import {FaEdit} from "react-icons/fa";
+import {AiFillDelete} from "react-icons/ai";
 
 class Comment extends Component {
   constructor(props) {
     super(props);
     this.state = {
       edit: false,
-      btnLabel: <i className="fa fa-pencil"></i>,
-      btnLabelDelete: <i className="fa fa-remove"></i>,
+      btnLabel: <FaEdit />,
+      btnLabelDelete: <AiFillDelete />,
       rate: this.props.data.rate,
       comment: this.props.data.comment,
       author: this.props.data.author,
@@ -18,12 +20,12 @@ class Comment extends Component {
       submitDisable: false,
       loading: false,
       modal: false,
-      deletable: true
+      deletable: true,
     };
   }
 
   onUpdate = async () => {
-    const { edit, comment, rate } = this.state;
+    const {edit, comment, rate} = this.state;
     if (!edit) {
       this.setState({
         edit: true,
@@ -31,14 +33,14 @@ class Comment extends Component {
         disabled: false,
         submitDisable: true,
         btnLabelDelete: "Cancel",
-        deletable: false
+        deletable: false,
       });
     } else {
       if (comment === "") {
         return;
       }
 
-      this.setState({ loading: true });
+      this.setState({loading: true});
       try {
         const commentApi = new CommentApi();
         const body = {
@@ -52,11 +54,11 @@ class Comment extends Component {
         } else {
           this.setState({
             edit: false,
-            btnLabel: <i className="fa fa-pencil"></i>,
-            btnLabelDelete: <i className="fa fa-remove"></i>,
+            btnLabel: <FaEdit />,
+            btnLabelDelete: <AiFillDelete />,
             disabled: true,
             loading: false,
-            deletable: true
+            deletable: true,
           });
           this.props.onFetch();
         }
@@ -68,13 +70,13 @@ class Comment extends Component {
   };
 
   onDelete = async () => {
-    const { deletable } = this.state;
+    const {deletable} = this.state;
     if (deletable) {
       this.onShowModal();
     } else {
       this.setState({
-        btnLabelDelete: <i className="fa fa-remove"></i>,
-        btnLabel: <i className="fa fa-pencil"></i>,
+        btnLabel: <FaEdit />,
+        btnLabelDelete: <AiFillDelete />,
         edit: false,
         submitDisable: false,
         disabled: true,
@@ -89,9 +91,9 @@ class Comment extends Component {
     const validate =
       e.target.name === "rate"
         ? e.target.value === this.props.data.rate &&
-        this.state.comment === this.props.data.comment
+          this.state.comment === this.props.data.comment
         : e.target.value === this.props.data.comment &&
-        this.state.rate === this.props.data.rate;
+          this.state.rate === this.props.data.rate;
 
     this.setState({
       [e.target.name]: e.target.value,
@@ -100,14 +102,14 @@ class Comment extends Component {
   };
 
   onDeleteComment = async () => {
-    this.setState({ loading: true, modal: false });
+    this.setState({loading: true, modal: false});
     try {
       const commentApi = new CommentApi();
       const data = await commentApi.deleteComment(this.props.data._id);
       if (!data.success) {
         this.props.onShowErrorMessage();
       } else {
-        this.setState({ loading: false });
+        this.setState({loading: false});
         this.props.onFetch();
       }
     } catch (err) {
@@ -118,12 +120,12 @@ class Comment extends Component {
 
   onShowModal = () => {
     this.setState(prevState => {
-      return { modal: !prevState.modal };
+      return {modal: !prevState.modal};
     });
   };
 
   render() {
-    const { data } = this.props;
+    const {data} = this.props;
     if (!data) {
       return null;
     }
@@ -150,10 +152,10 @@ class Comment extends Component {
             width: "100%",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", width: "100px" }}>
-            <span style={{ alignSelf: "center" }}>{author ? author : ""}</span>
+          <div style={{display: "flex", alignItems: "center", width: "100px"}}>
+            <span style={{alignSelf: "center"}}>{author ? author : ""}</span>
           </div>
-          <div style={{ width: "200px", marginRight: "10px" }}>
+          <div style={{width: "200px", marginRight: "10px"}}>
             <Input
               type="select"
               name="rate"
@@ -178,13 +180,13 @@ class Comment extends Component {
           />
           <Button
             color="info"
-            style={{ marginLeft: "5px", marginRight: "5px", borderRadius: 0 }}
+            style={{marginLeft: "5px", marginRight: "5px", borderRadius: 0}}
             onClick={this.onUpdate}
             disabled={submitDisable}
           >
             {btnLabel}
           </Button>
-          <Button color="danger" style={{ borderRadius: 0 }} onClick={this.onDelete}>
+          <Button color="danger" style={{borderRadius: 0}} onClick={this.onDelete}>
             {btnLabelDelete}
           </Button>
         </div>
