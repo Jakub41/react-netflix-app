@@ -15,7 +15,7 @@ export const getMoviesBySearch = async (search) => {
     }
 }
 
-export const getMoviesInfo = async (movieID = `tt2732442`) => {
+export const getMoviesInfo = async (movieID) => {
     try {
         const url = `${API_MOVIE_URL}?apikey=${API_KEY}&i=${movieID}&plot`;
         const response = await fetch(url);
@@ -29,5 +29,3 @@ export const getMoviesInfo = async (movieID = `tt2732442`) => {
         };
     }
 }
-
-getMoviesInfo()

@@ -17,6 +17,7 @@ import Loading from "../../Components/Loading";
 import Error from "../../Components/Alert/Error";
 import CommentApi from "../../Apis/CommentApi";
 import InfoMessage from "../../Components/Alert/InfoMessage";
+import MovieDetails from "./partials/MovieDetails"
 
 class DetailMovie extends React.Component {
   state = {
@@ -28,16 +29,16 @@ class DetailMovie extends React.Component {
     loading: false,
     message: "There is an issue to fetch data from server. Please try again later.",
     info: false,
-    infoMessage: "The comment is added successfully"
+    infoMessage: "The comment is added successfully",
   };
 
   async componentDidMount() {
-    console.log("props", this.props)
+    console.log("props", this.props);
     await this.onFetchComments();
   }
 
   onFetchComments = async () => {
-    this.setState({ loading: true });
+    this.setState({loading: true});
     try {
       const commentApi = new CommentApi();
       const data = await commentApi.getAllComments(this.props.match.params.imdbID);
@@ -63,12 +64,12 @@ class DetailMovie extends React.Component {
   };
 
   onSubmit = async () => {
-    const { comment, rate } = this.state;
+    const {comment, rate} = this.state;
     if (comment === "") {
       return;
     }
 
-    this.setState({ loading: true });
+    this.setState({loading: true});
     try {
       const commentApi = new CommentApi();
       const body = {
@@ -86,7 +87,7 @@ class DetailMovie extends React.Component {
           disabled: true,
           loading: false,
           info: true,
-          infoMessage: "The comment is added successfully"
+          infoMessage: "The comment is added successfully",
         });
         setTimeout(this.onClearMessage, 2000);
       }
@@ -97,17 +98,27 @@ class DetailMovie extends React.Component {
   };
 
   onShowErrorMessage = () => {
-    this.setState({ hasErrors: true, loading: false });
+    this.setState({hasErrors: true, loading: false});
     setTimeout(this.onClearMessage, 5000);
   };
 
   onClearMessage = () => {
-    this.setState({ hasErrors: false, info: false });
+    this.setState({hasErrors: false, info: false});
   };
 
   render() {
-    const { data } = this.props.history.location.state;
-    const { comments, comment, rate, disabled, loading, hasErrors, message, info, infoMessage } = this.state;
+    const {data} = this.props.history.location.state;
+    const {
+      comments,
+      comment,
+      rate,
+      disabled,
+      loading,
+      hasErrors,
+      message,
+      info,
+      infoMessage,
+    } = this.state;
     if (!data) {
       return null;
     }
@@ -116,7 +127,8 @@ class DetailMovie extends React.Component {
         {hasErrors && <Error message={message} />}
         {loading && <Loading />}
         <Row>
-          <Col className="col-3" />
+          {/* <Col className="col-3" /> */}
+
           <Col className="col-6 mt-3">
             <div className="mx-2 movie-item">
               <CardImg className="movie-image" object src={data.Poster} top />
@@ -125,7 +137,9 @@ class DetailMovie extends React.Component {
               </CardBody>
             </div>
           </Col>
-          <Col className="col-3" />
+          <Col className="col-6 mt-3">
+            <MovieDetails />
+          </Col>
         </Row>
         {info && <InfoMessage message={infoMessage} />}
         <Row className="mt-2">
@@ -179,9 +193,9 @@ DetailMovie.propTypes = {
   history: PropTypes.any,
   match: PropTypes.shape({
     params: PropTypes.shape({
-      imdbID: PropTypes.string.isRequired
-    })
-  })
+      imdbID: PropTypes.string.isRequired,
+    }),
+  }),
 };
 
 export default DetailMovie;
