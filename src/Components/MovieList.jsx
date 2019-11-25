@@ -52,6 +52,7 @@ class MovieList extends React.Component {
                 />
             )
         }) : null;
+        
         return (
             <div className="mt-2 p-2">
                 <label style={{ color: "white" }}>{this.props.label}</label>

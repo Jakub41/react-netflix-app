@@ -33,7 +33,6 @@ class DetailMovie extends React.Component {
   };
 
   async componentDidMount() {
-    console.log("props", this.props);
     await this.onFetchComments();
   }
 
@@ -120,7 +119,7 @@ class DetailMovie extends React.Component {
       infoMessage,
     } = this.state;
     if (!data) {
-      return null;
+      return (<div>No information fetched</div>);
     }
     return (
       <Container className="mt-2 mb-4">
@@ -131,14 +130,14 @@ class DetailMovie extends React.Component {
 
           <Col className="col-6 mt-3">
             <div className="mx-2 movie-item">
-              <CardImg className="movie-image" object src={data.Poster} top />
+              <CardImg className="movie-image" src={data.Poster} top />
               <CardBody>
                 <CardTitle>{data.Title}</CardTitle>
               </CardBody>
             </div>
           </Col>
           <Col className="col-6 mt-3">
-            <MovieDetails />
+            <MovieDetails movieID={data.imdbID} />
           </Col>
         </Row>
         {info && <InfoMessage message={infoMessage} />}

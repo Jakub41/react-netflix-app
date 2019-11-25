@@ -18,7 +18,7 @@ class MovieGridItem extends Component {
     return (
       <Col className={this.props.colWidth} onClick={() => this.onClick()}>
         <Card>
-          <CardImg className="images" object src={data.Poster} top width="100%" />
+          <CardImg className="images" src={data.Poster} top width="100%" />
           <CardBody>
             <CardTitle>{data.Title}</CardTitle>
           </CardBody>

@@ -20,16 +20,14 @@ export default class MovieDetails extends Component {
   };
 
   async componentDidMount() {
-    console.log("props", this.props);
-
-    await this.onFetchInfo();
+    await this.onFetchInfo(this.props.movieID);
   }
 
-  onFetchInfo = async () => {
+  onFetchInfo = async (movieID) => {
     try {
-      const info = await getMoviesInfo();
+      const info = await getMoviesInfo(movieID);
 
-      console.log(info);
+      console.log("GETTING IN DETAIL", info);
 
       this.setState({
         MovieDetails: info.data,
@@ -51,4 +49,5 @@ MovieDetails.propTypes = {
       imdbID: PropTypes.string.isRequired,
     }),
   }),
+  movieID: PropTypes.string
 };
