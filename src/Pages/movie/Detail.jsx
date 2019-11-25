@@ -132,7 +132,6 @@ class DetailMovie extends React.Component {
             <div className="mx-2 movie-item">
               <CardImg className="movie-image" src={data.Poster} top />
               <CardBody>
-                <CardTitle>{data.Title}</CardTitle>
               </CardBody>
             </div>
           </Col>
