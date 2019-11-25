@@ -21,12 +21,13 @@ export default class MovieDetails extends Component {
 
   async componentDidMount() {
     console.log("props", this.props);
+
     await this.onFetchInfo();
   }
 
   onFetchInfo = async () => {
     try {
-      const info = await getMoviesInfo(this.props.match.params.imdbID);
+      const info = await getMoviesInfo();
 
       console.log(info);
 
