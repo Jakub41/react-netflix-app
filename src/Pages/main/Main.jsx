@@ -67,7 +67,6 @@ class Main extends Component {
   onFetchMovies = async (key, search) => {
     try {
       const data1 = await getMoviesBySearch(search);
-      console.log("Data1", data1)
       if (!data1.Response === "True") {
         return [];
       } else {
