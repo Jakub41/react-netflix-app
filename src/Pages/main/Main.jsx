@@ -42,15 +42,15 @@ class Main extends Component {
       this.setState({loading: true});
       const firstCategories = await this.onFetchMovies(
         "firstCategories",
-        "s=star trek&type=series"
+        "s=star+trek&type=series"
       );
       const secondCategories = await this.onFetchMovies(
         "secondCategories",
-        "s=star wars&type=movie"
+        "s=star+wars&type=movie"
       );
       const thirdCategories = await this.onFetchMovies(
         "thirdCategories",
-        "s=harry potter&type=movie"
+        "s=harry+potter&type=movie"
       );
       this.setState({
         firstCategories,
@@ -67,6 +67,7 @@ class Main extends Component {
   onFetchMovies = async (key, search) => {
     try {
       const data1 = await getMoviesBySearch(search);
+      console.log("Data1", data1)
       if (!data1.Response === "True") {
         return [];
       } else {
