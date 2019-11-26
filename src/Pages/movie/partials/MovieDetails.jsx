@@ -1,18 +1,17 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {
-  Container,
-  Row,
-  Col,
-  CardImg,
-  CardTitle,
-  CardBody,
-  Button,
-  Input,
-  FormGroup,
-  Label,
-} from "reactstrap";
+import {ListGroup, ListGroupItem, ListGroupItemHeading} from "reactstrap";
 import {getMoviesInfo} from "../../../Apis/MovieApi";
+import {
+  MdBook,
+  MdVoiceChat,
+  MdRecentActors,
+  MdFlag,
+  MdMovie,
+  MdChildCare,
+} from "react-icons/md";
+import {FaAward, FaCalendarAlt, FaLanguage} from "react-icons/fa";
+import {GiSandsOfTime, GiFountainPen, GiDirectorChair} from "react-icons/gi";
 
 export default class MovieDetails extends Component {
   state = {
@@ -42,15 +41,59 @@ export default class MovieDetails extends Component {
   render() {
     const {movieInfo} = this.state;
     return movieInfo ? (
-      <div>
-        <h1>{movieInfo.Title}</h1>
-        <p>{movieInfo.Plot}</p>
-        <p>{movieInfo.Genre}</p>
-        <p>{movieInfo.Actors}</p>
-        <p>{movieInfo.Country}</p>
-        <p>{movieInfo.Language}</p>
-        <p>{movieInfo.Awards}</p>
-      </div>
+      <>
+        <ListGroup>
+          <ListGroupItemHeading>{movieInfo.Title}</ListGroupItemHeading>
+          <ListGroupItem className="media">
+            <MdBook className="media-left media-middle" />
+            <span className="media-right">{movieInfo.Plot}</span>
+          </ListGroupItem>
+          <ListGroupItem>
+            {" "}
+            <MdVoiceChat /> {movieInfo.Genre}
+          </ListGroupItem>
+          <ListGroupItem>
+            {" "}
+            <GiDirectorChair /> {movieInfo.Director}
+          </ListGroupItem>
+          <ListGroupItem>
+            {" "}
+            <MdRecentActors /> {movieInfo.Actors}
+          </ListGroupItem>
+          <ListGroupItem>
+            {" "}
+            <GiFountainPen /> {movieInfo.Writer}
+          </ListGroupItem>
+          <ListGroupItem>
+            {" "}
+            <MdFlag /> {movieInfo.Country}
+          </ListGroupItem>
+          <ListGroupItem>
+            {" "}
+            <FaAward /> {movieInfo.Awards}
+          </ListGroupItem>
+          <ListGroupItem>
+            {" "}
+            <FaCalendarAlt /> {movieInfo.Year}
+          </ListGroupItem>
+          <ListGroupItem>
+            {" "}
+            <FaLanguage /> {movieInfo.Language}
+          </ListGroupItem>
+          <ListGroupItem>
+            {" "}
+            <GiSandsOfTime /> {movieInfo.Runtime}
+          </ListGroupItem>
+          <ListGroupItem>
+            {" "}
+            <MdMovie /> {movieInfo.totalSeasons}
+          </ListGroupItem>
+          <ListGroupItem>
+            {" "}
+            <MdChildCare /> {movieInfo.Rated}
+          </ListGroupItem>
+        </ListGroup>
+      </>
     ) : (
       <div></div>
     );
@@ -67,6 +110,12 @@ MovieDetails.propTypes = {
     Genre: PropTypes.string,
     Language: PropTypes.string,
     Plot: PropTypes.string,
+    Year: PropTypes.string,
+    Runtime: PropTypes.string,
+    totalSeasons: PropTypes.string,
+    Rated: PropTypes.string,
+    Writer: PropTypes.string,
+    Director: PropTypes.string,
   }),
   movieID: PropTypes.string,
 };

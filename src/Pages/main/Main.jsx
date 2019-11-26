@@ -18,7 +18,7 @@ import Error from "../../Components/Alert/Error";
 import MovieGrid from "../../Components/MovieGrid";
 import {Icon} from "@iconify/react";
 import netflixIcon from "@iconify/icons-mdi/netflix";
-import Hero from './partials/Hero';
+import Hero from "./partials/Hero";
 
 class Main extends Component {
   state = {
@@ -268,21 +268,22 @@ class Main extends Component {
                   Harry potter
                 </NavLink>
               </NavItem>
+              <NavItem>
+                <div className="ui icon input">
+                  <Input
+                    type="text"
+                    placeholder="Search movie"
+                    onChange={this.searchChange}
+                    value={searchString}
+                  />
+                </div>
+              </NavItem>
             </Nav>
           </Container>
         </Navbar>
         <Hero />
         <Container className="py-4">
-          <Row>
-          <div className="ui icon input">
-            <Input
-              type="text"
-              placeholder="Search movie"
-              onChange={this.searchChange}
-              value={searchString}
-            />
-          </div>
-          </Row>
+          <Row></Row>
           {hasErrors && <Error message={message} />}
           {loading && <Loading />}
           {gridView ? this.renderMovieGrid() : this.renderMovies()}
