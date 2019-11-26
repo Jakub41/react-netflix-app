@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router'
 import { BrowserRouter } from 'react-router-dom'
+import {Navigation} from './Components/Navigation/Navigation'
 import Main from './Pages/main/Main'
 import DetailMovie from './Pages/movie/Detail'
 
@@ -13,6 +14,7 @@ import "slick-carousel/slick/slick-theme.css";
 function App() {
   return (
     <BrowserRouter basename="/">
+      <Navigation />
       <Switch>
         <Route exact path="/" component={Main} />
         <Route exact path="/:imdbID" component={DetailMovie} />
