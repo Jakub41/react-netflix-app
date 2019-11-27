@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {
   Container,
   Row,
+  Col,
   Input,
   Navbar,
   NavbarToggler,
@@ -25,7 +26,7 @@ class Main extends Component {
     loading: false,
     movies: [],
     hasErrors: false,
-    message: "Not found movie",
+    message: "Error something went wrong please refresh the browser or come back later",
     firstCategories: [],
     secondCategories: [],
     thirdCategories: [],
@@ -82,7 +83,7 @@ class Main extends Component {
 
   onShowErrorMessage = () => {
     this.setState({hasErrors: true, loading: false});
-    setTimeout(this.onClearMessage, 5000);
+    setTimeout(this.onClearMessage, 50000);
   };
 
   onClearMessage = () => {
@@ -283,8 +284,11 @@ class Main extends Component {
         </Navbar>
         <Hero />
         <Container className="py-4">
-          <Row></Row>
-          {hasErrors && <Error message={message} />}
+          <Row>
+            <Col lg="12">
+            {hasErrors && <Error message={message} />}
+            </Col>
+          </Row>
           {loading && <Loading />}
           {gridView ? this.renderMovieGrid() : this.renderMovies()}
         </Container>

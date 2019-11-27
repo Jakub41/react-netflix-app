@@ -16,7 +16,7 @@ import Loading from "../../Components/Loading";
 import Error from "../../Components/Alert/Error";
 import CommentApi from "../../Apis/CommentApi";
 import InfoMessage from "../../Components/Alert/InfoMessage";
-import MovieDetails from "./partials/MovieDetails"
+import MovieDetails from "./partials/MovieDetails";
 
 class DetailMovie extends React.Component {
   state = {
@@ -87,7 +87,7 @@ class DetailMovie extends React.Component {
           info: true,
           infoMessage: "The comment is added successfully",
         });
-        setTimeout(this.onClearMessage, 2000);
+        setTimeout(this.onClearMessage, 5000);
       }
     } catch (err) {
       console.log("onSubmit err: ", err);
@@ -118,7 +118,7 @@ class DetailMovie extends React.Component {
       infoMessage,
     } = this.state;
     if (!data) {
-      return (<div>No information fetched</div>);
+      return <div>No information fetched</div>;
     }
     return (
       <Container className="mt-2 mb-4">
@@ -130,15 +130,16 @@ class DetailMovie extends React.Component {
           <Col className="col-6 mt-3">
             <div className="mx-2 movie-item">
               <CardImg className="movie-image" src={data.Poster} top />
-              <CardBody>
-              </CardBody>
+              <CardBody></CardBody>
             </div>
           </Col>
           <Col className="col-6 mt-3">
             <MovieDetails movieID={data.imdbID} />
           </Col>
         </Row>
-        {info && <InfoMessage message={infoMessage} />}
+        <Row>
+          <Col lg="12">{info && <InfoMessage message={infoMessage} />}</Col>
+        </Row>
         <Row className="mt-2">
           <div className="col-12 mt-3">
             <FormGroup className="col-3 mt-3">

@@ -102,6 +102,7 @@ export default class MovieDetails extends Component {
             <MdChildCare /> {movieInfo.Rated}
           </ListGroupItem>
         </ListGroup>
+        <div>{hasErrors && <Error message={message} />}</div>
       </>
     ) : (
       <div>{hasErrors && <Error message={message} />}</div>
