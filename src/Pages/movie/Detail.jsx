@@ -4,7 +4,6 @@ import {
   Container,
   CardImg,
   CardBody,
-  CardTitle,
   CardFooter,
   Button,
   Input,
@@ -15,8 +14,6 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Row,
-  Col,
 } from "reactstrap";
 import CommentList from "../../Components/Comment/CommentList";
 import Loading from "../../Components/Loading";
@@ -171,7 +168,7 @@ class DetailMovie extends React.Component {
 
     comments.length > 0 &&
       comments.map(comment => {
-        rating += parseInt(comment.rate);
+        return rating += parseInt(comment.rate);
       });
     const averageRating = rating / comments.length;
     return averageRating;
