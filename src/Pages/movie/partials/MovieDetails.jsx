@@ -16,7 +16,7 @@ import Error from "../../../Components/Alert/Error";
 
 export default class MovieDetails extends Component {
   state = {
-    movieInfo: {},
+    movieInfo:  null,
     hasErrors: false,
     message: "Something went wrong, please refresh yours page or come back later",
   };
@@ -49,7 +49,7 @@ export default class MovieDetails extends Component {
 
   render() {
     const {movieInfo, hasErrors, message} = this.state;
-    return movieInfo ? (
+    return (movieInfo && Object.keys(movieInfo).length !== 0) ? (
       <>
         <ListGroup>
           <ListGroupItemHeading>{movieInfo.Title}</ListGroupItemHeading>
@@ -102,7 +102,6 @@ export default class MovieDetails extends Component {
             <MdChildCare /> {movieInfo.Rated}
           </ListGroupItem>
         </ListGroup>
-        <div>{hasErrors && <Error message={message} />}</div>
       </>
     ) : (
       <div>{hasErrors && <Error message={message} />}</div>
