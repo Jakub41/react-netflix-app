@@ -194,3 +194,24 @@ video {
   height: 30vw;
   object-fit: cover;
 }
+
+.input-group {
+  width: 20%;
+  border-radius: 30%;
+}
+
+.input-group input {
+  /* border-radius: 30%; */
+}
+
+.input-group-append {
+  background-color: #d32f2f;
+  border-radius: 57%;
+  margin-left: -25px;
+  z-index: 100;
+}
+
+.input-group-append svg {
+  font-size: 2.5em;
+  padding: 4px;
+}

@@ -12,6 +12,9 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
+  InputGroupAddon,
+  Button,
+  InputGroup
 } from "reactstrap";
 import {Icon} from "@iconify/react";
 import netflixIcon from "@iconify/icons-mdi/netflix";
@@ -22,6 +25,7 @@ import Error from "../../Components/Alert/Error";
 import MovieGrid from "../../Components/MovieGrid";
 import Hero from "./partials/Hero";
 import {navigationLink} from "../../Utils/utilsConst";
+import {FaSearch} from "react-icons/fa"
 
 const debounce = (func, delay) => {
   let debounceTimer;
@@ -266,20 +270,27 @@ class Main extends Component {
                 <DropdownToggle caret>Browse</DropdownToggle>
                 <DropdownMenu>
                   {navigationLink.map((item, index) => (
-                    <DropdownItem key={index} onClick={() => this.onSelectCategory(index)}>
+                    <DropdownItem
+                      key={index}
+                      onClick={() => this.onSelectCategory(index)}
+                    >
                       {item}
                     </DropdownItem>
                   ))}
                 </DropdownMenu>
               </Dropdown>
             </div>
-
-            <Input
-              type="text"
-              placeholder="Search movie"
-              onChange={this.searchChange}
-              className="input-field"
-            />
+            <InputGroup>
+              <Input
+                type="text"
+                placeholder="Search movie"
+                onChange={this.searchChange}
+                className="input-field"
+              />
+              <InputGroupAddon addonType="append">
+                <FaSearch />
+              </InputGroupAddon>
+            </InputGroup>
           </Container>
         </Navbar>
 
