@@ -2,8 +2,6 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {
   Container,
-  Row,
-  Col,
   Input,
   Navbar,
   NavbarBrand,
@@ -15,13 +13,13 @@ import {
   DropdownMenu,
   DropdownToggle,
 } from "reactstrap";
+import {Icon} from "@iconify/react";
+import netflixIcon from "@iconify/icons-mdi/netflix";
 import FilterMovieList from "../../Components/MovieList";
 import {getMoviesBySearch} from "../../Apis/MovieApi";
 import Loading from "../../Components/Loading";
 import Error from "../../Components/Alert/Error";
 import MovieGrid from "../../Components/MovieGrid";
-import {Icon} from "@iconify/react";
-import netflixIcon from "@iconify/icons-mdi/netflix";
 import Hero from "./partials/Hero";
 import {navigationLink} from "../../Utils/utilsConst";
 
@@ -219,6 +217,7 @@ class Main extends Component {
         );
     }
   };
+
   renderMovieGrid = () => {
     const {gridData} = this.state;
     return gridData.length > 0 ? (
@@ -229,6 +228,7 @@ class Main extends Component {
       </div>
     );
   };
+
   render() {
     const {
       hasErrors,
@@ -237,7 +237,6 @@ class Main extends Component {
       gridView,
       selectedCategory,
       dropdown,
-      isSearch,
     } = this.state;
     return (
       <div style={{backgroundColor: "#2b2a25"}}>
@@ -274,6 +273,7 @@ class Main extends Component {
                 </DropdownMenu>
               </Dropdown>
             </div>
+
             <Input
               type="text"
               placeholder="Search movie"
@@ -282,11 +282,10 @@ class Main extends Component {
             />
           </Container>
         </Navbar>
+
         <Hero />
         <Container className="py-4">
-          <Row>
-            <Col lg="12">{hasErrors && <Error message={message} />}</Col>
-          </Row>
+          {hasErrors && <Error message={message} />}
           {loading && <Loading />}
           {gridView ? this.renderMovieGrid() : this.renderMovies()}
         </Container>
