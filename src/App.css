@@ -1,4 +1,5 @@
 @import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url("https://fonts.googleapis.com/css?family=Coustard&display=swap");
 
 .input-field {
   width: 40%;
@@ -8,7 +9,13 @@
   color: white;
   font-size: 30px;
   margin: 40px;
+  font-family: "Coustard", serif;
 }
+
+.section-label img {
+  width: 20%;
+}
+
 @media only screen and (max-device-width: 480px) {
   .section-label {
     color: white;

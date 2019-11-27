@@ -87,7 +87,9 @@ class MovieList extends React.Component {
       : null;
     return (
       <div className="mt-2 p-2">
-        <label className="section-label">{this.props.label}</label>
+        <label className="section-label">
+          {this.props.label}
+        </label>
         <div className="">
           <Slider {...settings} ref={this.carouselRef} className="slick-mobile">
             {movieList}
