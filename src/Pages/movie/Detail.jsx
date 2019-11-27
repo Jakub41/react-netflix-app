@@ -145,9 +145,8 @@ class DetailMovie extends React.Component {
               onChange={this.onChange}
               style={{width: 200}}
             >
-              {ratings.map(rating => (
-                // eslint-disable-next-line react/jsx-key
-                <option>{rating}</option>
+              {ratings.map((rating, i) => (
+                <option key={i}>{rating}</option>
               ))}
             </Input>
           </FormGroup>
@@ -192,7 +191,9 @@ class DetailMovie extends React.Component {
         <Card className="flex-row flex-wrap">
           <CardHeader className="border-0 col-4 mt-4">
             <CardImg className="movie-image" src={data.Poster} top />
-            <div className="rating mt-4">{averageRating ? averageRating.toFixed(1) : 0}</div>
+            <div className="rating mt-4">
+              {averageRating ? averageRating.toFixed(1) : 0}
+            </div>
             <div className="text-primary" style={{fontSize: 30}}>
               {comments.length} votes
             </div>
