@@ -154,7 +154,7 @@ class Comment extends Component {
           <h5>{author}</h5>
 
           <Row className="only-desktop">
-            <Col sm={2}>
+            <Col sm={2} md={6}>
               <Input
                 name="comment"
                 id="comment"

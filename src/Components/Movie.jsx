@@ -22,7 +22,7 @@ class Movie extends Component {
             onMouseUpCapture={onMouseUpCapture}
             onMouseDownCapture={e => onMouseDownCapture(e)}
           >
-            <CardImg object src={data.Poster} className="movie-image" />
+            <CardImg src={data.Poster} className="movie-image" />
             <div className="movie-title">{data.Title}</div>
           </div>
         </Col>
