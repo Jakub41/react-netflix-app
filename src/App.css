@@ -1,33 +1,79 @@
-.App {
-  text-align: center;
-}
+@import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 
-.App-logo {
-  height: 40vmin;
+.input-field {
+  width: 40%;
+  position: relative;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.section-label {
   color: white;
+  font-size: 30px;
+  margin: 40px;
 }
-
-.App-link {
-  color: #09d3ac;
+@media only screen and (max-device-width: 480px) {
+  .section-label {
+    color: white;
+    font-size: 25px;
+    margin: 10px 0 0 40px;
+  }
 }
-
-.price-box {
+.movie-title {
+  color: white;
+  font-family: cursive;
+  font-size: 20px;
+  margin-top: 15px;
+}
+.flex {
   display: flex;
-  align-items: center;
+}
+.space-between {
+  justify-content: space-between;
+}
+.margin-auto {
+  width: 50%;
+  /* height: 450px; */
+  margin: auto;
+  justify-content: center;
+}
+@media only screen and (max-device-width: 480px) {
+  .margin-auto {
+    width: 100%;
+    margin: 20px auto;
+    justify-content: center;
+    margin: 5px;
+  }
+}
+@media only screen and (max-device-width: 480px) {
+  .comment {
+    margin: 20px;
+  }
+}
+/* Responsiveness */
+@media only screen and (max-device-width: 600px) {
+  .only-mobile {
+    display: block;
+  }
+}
+@media only screen and (min-width: 520px) {
+  .only-mobile {
+    display: none;
+  }
 }
 
-.price {
-  flex: 1 1 auto;
-  font-weight: bold;
-  font-size: 24px;
+@media only screen and (min-device-width: 300px) {
+  .only-desktop {
+    display: none;
+  }
+}
+@media only screen and (min-width: 960px) {
+  .only-desktop {
+    display: flex;
+  }
+}
+@media only screen and (min-width: 960px) {
+  .text-small {
+    font-size: 10px;
+  }
+}
+.orange {
+  color: orange;
 }

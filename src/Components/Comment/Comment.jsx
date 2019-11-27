@@ -1,10 +1,11 @@
 import React, {Component} from "react";
-import {Row, Input, Button, Modal, ModalBody, ModalFooter} from "reactstrap";
+import {Row, Input, Button, Modal, ModalBody, ModalFooter, Col} from "reactstrap";
 import PropTypes from "prop-types";
 import Loading from "../Loading";
 import CommentApi from "../../Apis/CommentApi";
 import {FaEdit} from "react-icons/fa";
 import {AiFillDelete} from "react-icons/ai";
+import StarRatings from "react-star-ratings";
 
 class Comment extends Component {
   constructor(props) {
@@ -124,6 +125,10 @@ class Comment extends Component {
     });
   };
 
+  onChangeRating = newrating => {
+    this.setState({rate: newrating});
+  };
+
   render() {
     const {data} = this.props;
     if (!data) {
@@ -139,59 +144,84 @@ class Comment extends Component {
       loading,
       submitDisable,
       modal,
+      edit,
     } = this.state;
 
     return (
-      <Row className="mt-2">
+      <React.Fragment>
         {loading && <Loading />}
-        <div
-          className=""
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            width: "100%",
-          }}
-        >
-          <div style={{display: "flex", alignItems: "center", width: "100px"}}>
-            <span style={{alignSelf: "center"}}>{author ? author : ""}</span>
-          </div>
-          <div style={{width: "200px", marginRight: "10px"}}>
+        <div className="comment-container">
+          <h5>{author}</h5>
+
+          <Row className="only-desktop">
+            <Col sm={2}>
+              <Input
+                name="comment"
+                id="comment"
+                value={comment}
+                disabled={disabled}
+                onChange={this.onChange}
+              />
+            </Col>
+            <Col sm={2}>
+              <div>
+                <StarRatings
+                  rating={rate}
+                  starRatedColor="orange"
+                  starDimension="20px"
+                  starSpacing="4px"
+                  changeRating={edit ? this.onChangeRating : null}
+                  numberOfStars={5}
+                  name="rating"
+                  starHoverColor="orange"
+                />
+              </div>
+            </Col>
+            <Col sm={4}>
+              <Button
+                color="info"
+                style={{marginLeft: "5px", marginRight: "5px", borderRadius: 0}}
+                onClick={this.onUpdate}
+              >
+                {btnLabel}
+              </Button>
+              <Button color="danger" style={{borderRadius: 0}} onClick={this.onDelete}>
+                {btnLabelDelete}
+              </Button>
+            </Col>
+          </Row>
+          <div className="only-mobile">
             <Input
-              type="select"
-              name="rate"
-              id="rate"
-              value={rate}
+              name="comment"
+              id="comment"
+              value={comment}
               disabled={disabled}
               onChange={this.onChange}
-            >
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </Input>
+            />
+            <div className="flex space-between mt-2">
+              <StarRatings
+                rating={rate}
+                starRatedColor="orange"
+                numberOfStars={5}
+                name="rating"
+              />
+              <div>
+                <Button
+                  color="info"
+                  style={{marginLeft: "5px", marginRight: "5px", borderRadius: 0}}
+                  onClick={this.onUpdate}
+                  disabled={submitDisable}
+                >
+                  {btnLabel}
+                </Button>
+                <Button color="danger" style={{borderRadius: 0}} onClick={this.onDelete}>
+                  {btnLabelDelete}
+                </Button>
+              </div>
+            </div>
           </div>
-          <Input
-            name="comment"
-            id="comment"
-            value={comment}
-            disabled={disabled}
-            onChange={this.onChange}
-          />
-          <Button
-            color="info"
-            style={{marginLeft: "5px", marginRight: "5px", borderRadius: 0}}
-            onClick={this.onUpdate}
-            disabled={submitDisable}
-          >
-            {btnLabel}
-          </Button>
-          <Button color="danger" style={{borderRadius: 0}} onClick={this.onDelete}>
-            {btnLabelDelete}
-          </Button>
         </div>
 
-        {/*Modal for asking to delete*/}
         <Modal isOpen={modal} toggle={this.onShowModal}>
           <ModalBody>Are you sure to delete this comment?</ModalBody>
           <ModalFooter>
@@ -203,7 +233,7 @@ class Comment extends Component {
             </Button>
           </ModalFooter>
         </Modal>
-      </Row>
+      </React.Fragment>
     );
   }
 }

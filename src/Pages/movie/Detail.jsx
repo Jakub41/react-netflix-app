@@ -2,14 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import {
   Container,
-  Row,
-  Col,
   CardImg,
   CardBody,
+  CardTitle,
+  CardFooter,
   Button,
   Input,
   FormGroup,
   Label,
+  Card,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Row,
+  Col,
 } from "reactstrap";
 import CommentList from "../../Components/Comment/CommentList";
 import Loading from "../../Components/Loading";
@@ -17,6 +24,8 @@ import Error from "../../Components/Alert/Error";
 import CommentApi from "../../Apis/CommentApi";
 import InfoMessage from "../../Components/Alert/InfoMessage";
 import MovieDetails from "./partials/MovieDetails";
+import {ratings} from "../../Utils/utilsConst";
+import {CardHeader} from "semantic-ui-react";
 
 class DetailMovie extends React.Component {
   state = {
@@ -29,6 +38,7 @@ class DetailMovie extends React.Component {
     message: "There is an issue to fetch data from server. Please try again later.",
     info: false,
     infoMessage: "The comment is added successfully",
+    modal: false,
   };
 
   async componentDidMount() {
@@ -54,6 +64,11 @@ class DetailMovie extends React.Component {
     }
   };
 
+  toggle = () => {
+    const {modal} = this.state;
+    this.setState({modal: !modal});
+  };
+
   onChange = e => {
     this.setState({
       [e.target.name]: e.target.value,
@@ -67,7 +82,7 @@ class DetailMovie extends React.Component {
       return;
     }
 
-    this.setState({loading: true});
+    this.setState({loading: true, modal: false});
     try {
       const commentApi = new CommentApi();
       const body = {
@@ -87,7 +102,7 @@ class DetailMovie extends React.Component {
           info: true,
           infoMessage: "The comment is added successfully",
         });
-        setTimeout(this.onClearMessage, 5000);
+        setTimeout(this.onClearMessage, 2000);
       }
     } catch (err) {
       console.log("onSubmit err: ", err);
@@ -104,78 +119,95 @@ class DetailMovie extends React.Component {
     this.setState({hasErrors: false, info: false});
   };
 
+  getReviewModal = () => {
+    const {modal, comment, rate} = this.state;
+    return (
+      <Modal isOpen={modal} toggle={this.toggle}>
+        <ModalHeader toggle={this.toggle}>Add Review</ModalHeader>
+        <ModalBody>
+          <FormGroup>
+            <Label for="comment">Comment</Label>
+            <Input
+              id="comment"
+              type="text"
+              name="comment"
+              placeholder="Type comment"
+              onChange={this.onChange}
+              value={comment}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="rate">Rate(Out of 5)</Label>
+            <Input
+              type="select"
+              name="rate"
+              value={rate}
+              onChange={this.onChange}
+              style={{width: 200}}
+            >
+              {ratings.map(rating => (
+                // eslint-disable-next-line react/jsx-key
+                <option>{rating}</option>
+              ))}
+            </Input>
+          </FormGroup>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" disabled={!rate || !comment} onClick={this.onSubmit}>
+            Submit
+          </Button>
+          <Button color="secondary" onClick={this.toggle}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
+    );
+  };
+
+  getAverageRating = () => {
+    const {comments} = this.state;
+
+    let rating = 0;
+
+    comments.length > 0 &&
+      comments.map(comment => {
+        rating += parseInt(comment.rate);
+      });
+    const averageRating = rating / comments.length;
+    return averageRating;
+  };
+
   render() {
     const {data} = this.props.history.location.state;
-    const {
-      comments,
-      comment,
-      rate,
-      disabled,
-      loading,
-      hasErrors,
-      message,
-      info,
-      infoMessage,
-    } = this.state;
+    const {comments, loading, hasErrors, message, info, infoMessage} = this.state;
     if (!data) {
-      return <div>No information fetched</div>;
+      return null;
     }
+    const reviewModal = this.getReviewModal();
+    const averageRating = this.getAverageRating();
     return (
-      <Container className="mt-2 mb-4">
+      <Container className="detail-container">
         {hasErrors && <Error message={message} />}
         {loading && <Loading />}
-        <Row>
-          {/* <Col className="col-3" /> */}
-
-          <Col className="col-6 mt-3">
-            <div className="mx-2 movie-item">
-              <CardImg className="movie-image" src={data.Poster} top />
-              <CardBody></CardBody>
+        <Card className="flex-row flex-wrap">
+          <CardHeader className="border-0 col-4 mt-4">
+            <CardImg className="movie-image" src={data.Poster} top />
+            <div className="rating mt-4">{averageRating ? averageRating.toFixed(1) : 0}</div>
+            <div className="text-primary" style={{fontSize: 30}}>
+              {comments.length} votes
             </div>
-          </Col>
-          <Col className="col-6 mt-3">
+          </CardHeader>
+          <CardBody className="px-2 col-8">
             <MovieDetails movieID={data.imdbID} />
-          </Col>
-        </Row>
-        <Row>
-          <Col lg="12">{info && <InfoMessage message={infoMessage} />}</Col>
-        </Row>
-        <Row className="mt-2">
-          <div className="col-12 mt-3">
-            <FormGroup className="col-3 mt-3">
-              <Label for="rate">Rate</Label>
-              <Input
-                type="select"
-                name="rate"
-                id="rate"
-                value={rate}
-                onChange={this.onChange}
-              >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </Input>
-            </FormGroup>
-            <FormGroup className="col-6 mt-3">
-              <Label for="comment">Comment</Label>
-              <Input
-                id="comment"
-                type="text"
-                name="comment"
-                placeholder="Type comment"
-                onChange={this.onChange}
-                value={comment}
-              />
-            </FormGroup>
-            <FormGroup className="col-6 mt-3">
-              <Button color="primary" disabled={disabled} onClick={this.onSubmit}>
-                Comment
-              </Button>
-            </FormGroup>
-          </div>
-        </Row>
+          </CardBody>
+          <CardFooter className="w-100">
+            <Button color="success" onClick={this.toggle}>
+              Review It
+            </Button>
+          </CardFooter>
+        </Card>
+        {reviewModal}
+        {info && <InfoMessage message={infoMessage} />}
 
         <CommentList
           comments={comments}

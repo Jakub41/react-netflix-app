@@ -16,7 +16,7 @@ import Error from "../../../Components/Alert/Error";
 
 export default class MovieDetails extends Component {
   state = {
-    movieInfo:  null,
+    movieInfo:  {},
     hasErrors: false,
     message: "Something went wrong, please refresh yours page or come back later",
   };
