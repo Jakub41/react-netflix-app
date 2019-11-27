@@ -12,10 +12,13 @@ import {
 } from "react-icons/md";
 import {FaAward, FaCalendarAlt, FaLanguage} from "react-icons/fa";
 import {GiSandsOfTime, GiFountainPen, GiDirectorChair} from "react-icons/gi";
+import Error from "../../../Components/Alert/Error";
 
 export default class MovieDetails extends Component {
   state = {
     movieInfo: {},
+    hasErrors: false,
+    message: "Something went wrong, please refresh yours page or come back later",
   };
 
   async componentDidMount() {
@@ -35,11 +38,17 @@ export default class MovieDetails extends Component {
       return [];
     } catch (err) {
       console.log("onFetchInfo err: ", err);
+      this.onShowErrorMessage();
     }
   };
 
+  onShowErrorMessage = () => {
+    this.setState({hasErrors: true});
+    setTimeout(this.onClearMessage, 5000);
+  };
+
   render() {
-    const {movieInfo} = this.state;
+    const {movieInfo, hasErrors, message} = this.state;
     return movieInfo ? (
       <>
         <ListGroup>
@@ -95,7 +104,7 @@ export default class MovieDetails extends Component {
         </ListGroup>
       </>
     ) : (
-      <div></div>
+      <div>{hasErrors && <Error message={message} />}</div>
     );
   }
 }
