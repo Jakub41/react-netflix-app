@@ -6,11 +6,14 @@ import {
   Col,
   Input,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
   Nav,
   NavItem,
   NavLink,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
 } from "reactstrap";
 import FilterMovieList from "../../Components/MovieList";
 import {getMoviesBySearch} from "../../Apis/MovieApi";
@@ -20,6 +23,17 @@ import MovieGrid from "../../Components/MovieGrid";
 import {Icon} from "@iconify/react";
 import netflixIcon from "@iconify/icons-mdi/netflix";
 import Hero from "./partials/Hero";
+import {navigationLink} from "../../Utils/utilsConst";
+
+const debounce = (func, delay) => {
+  let debounceTimer;
+  return function() {
+    const context = this;
+    const args = arguments;
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => func.apply(context, args), delay);
+  };
+};
 
 class Main extends Component {
   state = {
@@ -36,22 +50,23 @@ class Main extends Component {
     typingTimeout: 0,
     gridView: false,
     gridData: [],
+    dropdown: false,
   };
 
-  async componentDidMount() {
+  componentDidMount = async () => {
     try {
       this.setState({loading: true});
       const firstCategories = await this.onFetchMovies(
         "firstCategories",
-        "s=star+trek&type=series"
+        "s=star trek&type=series"
       );
       const secondCategories = await this.onFetchMovies(
         "secondCategories",
-        "s=star+wars&type=movie"
+        "s=star wars&type=movie"
       );
       const thirdCategories = await this.onFetchMovies(
         "thirdCategories",
-        "s=harry+potter&type=movie"
+        "s=harry potter&type=movie"
       );
       this.setState({
         firstCategories,
@@ -63,7 +78,7 @@ class Main extends Component {
       console.log("onFetchComments err: ", error);
       this.onShowErrorMessage();
     }
-  }
+  };
 
   onFetchMovies = async (key, search) => {
     try {
@@ -83,7 +98,7 @@ class Main extends Component {
 
   onShowErrorMessage = () => {
     this.setState({hasErrors: true, loading: false});
-    setTimeout(this.onClearMessage, 50000);
+    setTimeout(this.onClearMessage, 5000);
   };
 
   onClearMessage = () => {
@@ -91,17 +106,7 @@ class Main extends Component {
   };
 
   searchChange = event => {
-    if (this.state.typingTimeout) {
-      clearTimeout(this.state.typingTimeout);
-    }
-
-    this.setState({
-      searchString: event.target.value,
-      typing: false,
-      typingTimeout: setTimeout(() => {
-        this.onSearchByText(this.state.searchString);
-      }, 3000),
-    });
+    debounce(this.onSearchByText(event.target.value), 3000);
   };
 
   onSearchByText = async text => {
@@ -134,6 +139,10 @@ class Main extends Component {
 
   onSelectCategory = selectedCategory => {
     this.setState({selectedCategory});
+  };
+  toggle = () => {
+    const {dropdown} = this.state;
+    this.setState({dropdown: !dropdown});
   };
 
   renderMovies = () => {
@@ -210,7 +219,6 @@ class Main extends Component {
         );
     }
   };
-
   renderMovieGrid = () => {
     const {gridData} = this.state;
     return gridData.length > 0 ? (
@@ -221,9 +229,16 @@ class Main extends Component {
       </div>
     );
   };
-
   render() {
-    const {hasErrors, message, loading, searchString, gridView} = this.state;
+    const {
+      hasErrors,
+      message,
+      loading,
+      gridView,
+      selectedCategory,
+      dropdown,
+      isSearch,
+    } = this.state;
     return (
       <div style={{backgroundColor: "#2b2a25"}}>
         <Navbar dark expand="md">
@@ -231,63 +246,46 @@ class Main extends Component {
             <NavbarBrand href="/">
               <Icon icon={netflixIcon} color="red" />
             </NavbarBrand>
-            <NavbarToggler />
-            <Nav className="mr-auto" navbar>
-              <NavItem>
-                <NavLink
-                  href="#"
-                  onClick={() => this.onSelectCategory(0)}
-                  style={{color: "white"}}
-                >
-                  All
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  href="#"
-                  onClick={() => this.onSelectCategory(1)}
-                  style={{color: "white"}}
-                >
-                  Star Trek
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  href="#"
-                  onClick={() => this.onSelectCategory(2)}
-                  style={{color: "white"}}
-                >
-                  Star Wars
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  href="#"
-                  onClick={() => this.onSelectCategory(3)}
-                  style={{color: "white"}}
-                >
-                  Harry potter
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <div className="ui icon input">
-                  <Input
-                    type="text"
-                    placeholder="Search movie"
-                    onChange={this.searchChange}
-                    value={searchString}
-                  />
-                </div>
-              </NavItem>
+            <Nav className="only-desktop" navbar>
+              {navigationLink.map((item, index) => (
+                <NavItem key={index}>
+                  <NavLink
+                    href="#"
+                    onClick={() => this.onSelectCategory(index)}
+                    style={{
+                      color: selectedCategory === index ? "red" : "white",
+                      fontSize: 25,
+                    }}
+                  >
+                    {item}
+                  </NavLink>
+                </NavItem>
+              ))}
             </Nav>
+            <div className="only-mobile">
+              <Dropdown isOpen={dropdown} toggle={this.toggle}>
+                <DropdownToggle caret>Browse</DropdownToggle>
+                <DropdownMenu>
+                  {navigationLink.map((item, index) => (
+                    <DropdownItem key={index} onClick={() => this.onSelectCategory(index)}>
+                      {item}
+                    </DropdownItem>
+                  ))}
+                </DropdownMenu>
+              </Dropdown>
+            </div>
+            <Input
+              type="text"
+              placeholder="Search movie"
+              onChange={this.searchChange}
+              className="input-field"
+            />
           </Container>
         </Navbar>
         <Hero />
         <Container className="py-4">
           <Row>
-            <Col lg="12">
-            {hasErrors && <Error message={message} />}
-            </Col>
+            <Col lg="12">{hasErrors && <Error message={message} />}</Col>
           </Row>
           {loading && <Loading />}
           {gridView ? this.renderMovieGrid() : this.renderMovies()}

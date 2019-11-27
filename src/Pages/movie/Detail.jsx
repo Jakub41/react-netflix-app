@@ -26,6 +26,7 @@ import InfoMessage from "../../Components/Alert/InfoMessage";
 import MovieDetails from "./partials/MovieDetails";
 import {ratings} from "../../Utils/utilsConst";
 import {CardHeader} from "semantic-ui-react";
+import {GiRoundStar} from "react-icons/gi"
 
 class DetailMovie extends React.Component {
   state = {
@@ -185,13 +186,14 @@ class DetailMovie extends React.Component {
     const reviewModal = this.getReviewModal();
     const averageRating = this.getAverageRating();
     return (
-      <Container className="detail-container">
+      <Container className="detail-container mx-auto">
         {hasErrors && <Error message={message} />}
         {loading && <Loading />}
-        <Card className="flex-row flex-wrap">
+        <Card className="flex-row flex-wrap mb-4">
           <CardHeader className="border-0 col-4 mt-4">
             <CardImg className="movie-image" src={data.Poster} top />
             <div className="rating mt-4">
+              <GiRoundStar />
               {averageRating ? averageRating.toFixed(1) : 0}
             </div>
             <div className="text-primary" style={{fontSize: 30}}>

@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
 
 .nav-link {
-  color: rgb(255, 0, 0) !important;
+  /* color: rgb(255, 0, 0) !important; */
 }
 
 #brand-logo {
@@ -63,7 +63,6 @@ input {
   .jumbotron {
     max-width: 100%;
     margin: 0;
-    height: 250px;
     background-color: #eee;
     background-position: center;
     background-size: cover;
@@ -82,17 +81,17 @@ input {
   }
 }
 
-/*video as background; container element makes it responsive */
-.video-bg {
-  position: relative;
-  width: 100%;
-  background: transparent no-repeat;
-  background-size: cover;
-  /* height: 600px; */
-}
-
 video {
-  display: block;
+  position: absolute;
+  z-index: 0;
+  background: no-repeat;
+  background-size: 100% 100%;
+  top: 0px;
+  left: 0px; /* fixed to left. Replace it by right if you want.*/
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
 }
 /* disable video (e.g. in a media query) by setting .video-container to display: none; as appropriate */
 .video-container {
@@ -131,7 +130,7 @@ video {
 }
 
 .rating {
-  color: white;
+  color: rgb(255, 251, 0);
   background-color: green;
   width: 50px;
   padding: 10px;
