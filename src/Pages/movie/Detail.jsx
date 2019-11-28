@@ -14,6 +14,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Badge,
 } from "reactstrap";
 import CommentList from "../../Components/Comment/CommentList";
 import Loading from "../../Components/Loading";
@@ -23,7 +24,7 @@ import InfoMessage from "../../Components/Alert/InfoMessage";
 import MovieDetails from "./partials/MovieDetails";
 import {ratings} from "../../Utils/utilsConst";
 import {CardHeader} from "semantic-ui-react";
-import {GiRoundStar} from "react-icons/gi"
+import {GiRoundStar} from "react-icons/gi";
 
 class DetailMovie extends React.Component {
   state = {
@@ -168,7 +169,7 @@ class DetailMovie extends React.Component {
 
     comments.length > 0 &&
       comments.map(comment => {
-        return rating += parseInt(comment.rate);
+        return (rating += parseInt(comment.rate));
       });
     const averageRating = rating / comments.length;
     return averageRating;
@@ -189,12 +190,18 @@ class DetailMovie extends React.Component {
         <Card className="flex-row flex-wrap mb-4">
           <CardHeader className="border-0 col-4 mt-4">
             <CardImg className="movie-image" src={data.Poster} top />
-            <div className="rating mt-4">
-              <GiRoundStar />
-              {averageRating ? averageRating.toFixed(1) : 0}
+            <div className="mt-4">
+              <Badge className="rating" color="success">
+                <GiRoundStar />
+                {averageRating ? averageRating.toFixed(1) : 0}
+              </Badge>
+              <Badge className="votes" color="primary">
+                {comments.length} Reviews
+              </Badge>
+
             </div>
             <div className="text-primary" style={{fontSize: 30}}>
-              {comments.length} votes
+
             </div>
           </CardHeader>
           <CardBody className="px-2 col-8">
