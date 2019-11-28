@@ -13,7 +13,6 @@ import {
   DropdownMenu,
   DropdownToggle,
   InputGroupAddon,
-  Button,
   InputGroup,
 } from "reactstrap";
 import {Icon} from "@iconify/react";
@@ -26,6 +25,7 @@ import MovieGrid from "../../Components/MovieGrid";
 import Hero from "./partials/Hero";
 import {navigationLink} from "../../Utils/utilsConst";
 import {FaSearch} from "react-icons/fa";
+
 
 const debounce = (func, delay) => {
   let debounceTimer;

@@ -1,13 +1,13 @@
-import React from 'react'
-import { Route, Switch } from 'react-router'
-import { BrowserRouter } from 'react-router-dom'
-import {Navigation} from './Components/Navigation/Navigation'
-import Main from './Pages/main/Main'
-import DetailMovie from './Pages/movie/Detail'
+import React from "react";
+import {Route, Switch} from "react-router";
+import {BrowserRouter} from "react-router-dom";
+import {Navigation} from "./Components/Navigation/Navigation";
+import Main from "./Pages/main/Main";
+import DetailMovie from "./Pages/movie/Detail";
 
 //style
-import './App.css'
-import './styles/ui.css'
+import "./App.css";
+import "./styles/ui.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -20,7 +20,7 @@ function App() {
         <Route exact path="/:imdbID" component={DetailMovie} />
       </Switch>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
