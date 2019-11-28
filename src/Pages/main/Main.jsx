@@ -169,7 +169,7 @@ class Main extends Component {
               data={secondCategories}
             />
             <FilterMovieList
-              label="Harry potter"
+              label="Harry Potter"
               history={this.props.history}
               data={thirdCategories}
             />
@@ -194,7 +194,7 @@ class Main extends Component {
       case 3:
         return (
           <FilterMovieList
-            label="Harry potter"
+            label="Harry Potter"
             history={this.props.history}
             data={thirdCategories}
           />
@@ -213,7 +213,7 @@ class Main extends Component {
               data={secondCategories}
             />
             <FilterMovieList
-              label="Harry potter"
+              label="Harry Potter"
               history={this.props.history}
               data={thirdCategories}
             />

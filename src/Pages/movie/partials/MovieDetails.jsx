@@ -16,7 +16,7 @@ import Error from "../../../Components/Alert/Error";
 
 export default class MovieDetails extends Component {
   state = {
-    movieInfo:  {},
+    movieInfo: {},
     hasErrors: false,
     message: "Something went wrong, please refresh yours page or come back later",
   };
@@ -49,57 +49,57 @@ export default class MovieDetails extends Component {
 
   render() {
     const {movieInfo, hasErrors, message} = this.state;
-    return (movieInfo && Object.keys(movieInfo).length !== 0) ? (
+    return movieInfo && Object.keys(movieInfo).length !== 0 ? (
       <>
-        <ListGroup>
+        <ListGroup className="list-info">
           <ListGroupItemHeading>{movieInfo.Title}</ListGroupItemHeading>
-          <ListGroupItem className="media">
-            <MdBook className="media-left media-middle" />
-            <span className="media-right">{movieInfo.Plot}</span>
+          <ListGroupItem>
+            <MdBook />
+            <span>{movieInfo.Plot}</span>
           </ListGroupItem>
           <ListGroupItem>
-            {" "}
-            <MdVoiceChat /> {movieInfo.Genre}
+            <MdVoiceChat />
+            <span>{movieInfo.Genre}</span>
           </ListGroupItem>
           <ListGroupItem>
-            {" "}
-            <GiDirectorChair /> {movieInfo.Director}
+            <GiDirectorChair />
+            <span>{movieInfo.Director}</span>
           </ListGroupItem>
           <ListGroupItem>
-            {" "}
-            <MdRecentActors /> {movieInfo.Actors}
+            <MdRecentActors />
+            <span>{movieInfo.Actors}</span>
           </ListGroupItem>
           <ListGroupItem>
-            {" "}
-            <GiFountainPen /> {movieInfo.Writer}
+            <GiFountainPen />
+            <span>{movieInfo.Writer}</span>
           </ListGroupItem>
           <ListGroupItem>
-            {" "}
-            <MdFlag /> {movieInfo.Country}
+            <MdFlag />
+            <span>{movieInfo.Country}</span>
           </ListGroupItem>
           <ListGroupItem>
-            {" "}
-            <FaAward /> {movieInfo.Awards}
+            <FaAward />
+            <span>{movieInfo.Awards}</span>
           </ListGroupItem>
           <ListGroupItem>
-            {" "}
-            <FaCalendarAlt /> {movieInfo.Year}
+            <FaCalendarAlt />
+            <span>{movieInfo.Year}</span>
           </ListGroupItem>
           <ListGroupItem>
-            {" "}
-            <FaLanguage /> {movieInfo.Language}
+            <FaLanguage />
+            <span>{movieInfo.Language}</span>
           </ListGroupItem>
           <ListGroupItem>
-            {" "}
-            <GiSandsOfTime /> {movieInfo.Runtime}
+            <GiSandsOfTime />
+            <span>{movieInfo.Runtime}</span>
           </ListGroupItem>
           <ListGroupItem>
-            {" "}
-            <MdMovie /> {movieInfo.totalSeasons}
+            <MdMovie />
+            <span>{movieInfo.totalSeasons}</span>
           </ListGroupItem>
           <ListGroupItem>
-            {" "}
-            <MdChildCare /> {movieInfo.Rated}
+            <MdChildCare />
+            <span>{movieInfo.Rated}</span>
           </ListGroupItem>
         </ListGroup>
       </>

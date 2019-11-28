@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
 @import url("https://fonts.googleapis.com/css?family=Coustard&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Calistoga|Crete+Round&display=swap");
 
 .nav-link {
   font-family: "Coustard", serif;
@@ -136,9 +137,11 @@ video {
 .rating {
   color: rgb(255, 251, 0);
   width: 25%;
+  height: 10%;
   padding: 10px;
   font-size: 1.5em;
   font-family: "Pacifico", cursive;
+  height: 50px;
 }
 
 .votes {
@@ -147,6 +150,7 @@ video {
   padding: 10px;
   font-size: 1.5em;
   font-family: "Pacifico", cursive;
+  height: 50px;
 }
 
 @media only screen and (max-device-width: 480px) {
@@ -253,4 +257,15 @@ video {
   .slick-slider {
     margin-bottom: -90px;
   }
+}
+
+h5 {
+  font-size: 1.5em;
+  font-family: "Calistoga", cursive;
+}
+
+.list-info span {
+  margin-left: 10px;
+  font-family: "Crete Round", serif;
+  font-size: 1.2em;
 }
