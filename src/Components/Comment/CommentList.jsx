@@ -22,7 +22,7 @@ class CommentList extends Component {
         </div>
       </Card>
     ) : (
-      <h3>No Review Found</h3>
+      <h3 className="red-text">No Reviews yet, be the first to leave a comment</h3>
     );
   }
 }

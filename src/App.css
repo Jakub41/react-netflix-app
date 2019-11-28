@@ -1,5 +1,6 @@
 @import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css?family=Coustard&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Tomorrow&display=swap");
 
 body {
   background-color: #2b2a25;
@@ -115,4 +116,11 @@ body {
 
 .orange {
   color: orange;
+}
+
+.red-text {
+  color: #e60000;
+  font-weight: bolder;
+  font-family: "Tomorrow", sans-serif;
+  font-size: 1.5em;
 }

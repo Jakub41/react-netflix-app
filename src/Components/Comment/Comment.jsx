@@ -5,6 +5,7 @@ import Loading from "../Loading";
 import CommentApi from "../../Apis/CommentApi";
 import {FaEdit} from "react-icons/fa";
 import {AiFillDelete} from "react-icons/ai";
+import {MdSystemUpdateAlt, MdCancel} from "react-icons/md";
 import StarRatings from "react-star-ratings";
 
 class Comment extends Component {
@@ -30,10 +31,10 @@ class Comment extends Component {
     if (!edit) {
       this.setState({
         edit: true,
-        btnLabel: "Update",
+        btnLabel: <MdSystemUpdateAlt />,
         disabled: false,
         submitDisable: true,
-        btnLabelDelete: "Cancel",
+        btnLabelDelete: <MdCancel />,
         deletable: false,
       });
     } else {
