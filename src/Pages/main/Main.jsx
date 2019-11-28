@@ -14,7 +14,7 @@ import {
   DropdownToggle,
   InputGroupAddon,
   Button,
-  InputGroup
+  InputGroup,
 } from "reactstrap";
 import {Icon} from "@iconify/react";
 import netflixIcon from "@iconify/icons-mdi/netflix";
@@ -25,7 +25,7 @@ import Error from "../../Components/Alert/Error";
 import MovieGrid from "../../Components/MovieGrid";
 import Hero from "./partials/Hero";
 import {navigationLink} from "../../Utils/utilsConst";
-import {FaSearch} from "react-icons/fa"
+import {FaSearch} from "react-icons/fa";
 
 const debounce = (func, delay) => {
   let debounceTimer;
@@ -243,7 +243,7 @@ class Main extends Component {
       dropdown,
     } = this.state;
     return (
-      <div style={{backgroundColor: "#2b2a25"}}>
+      <>
         <Navbar dark expand="md">
           <Container className="pb-4">
             <NavbarBrand href="/">
@@ -300,7 +300,7 @@ class Main extends Component {
           {loading && <Loading />}
           {gridView ? this.renderMovieGrid() : this.renderMovies()}
         </Container>
-      </div>
+      </>
     );
   }
 }

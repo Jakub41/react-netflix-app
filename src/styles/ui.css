@@ -107,7 +107,7 @@ video {
   max-height: 540px;
   max-width: 100%;
   overflow: hidden;
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   right: 0;
 }
@@ -237,4 +237,10 @@ video {
 .input-group-append svg {
   font-size: 2.5em;
   padding: 4px;
+}
+
+@media only screen and (min-width: 960px) {
+  .slick-slider {
+    margin-bottom: -90px;
+  }
 }

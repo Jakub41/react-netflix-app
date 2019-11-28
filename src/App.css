@@ -1,6 +1,10 @@
 @import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css?family=Coustard&display=swap");
 
+body {
+  background-color: #2b2a25;
+}
+
 .input-field {
   width: 40%;
   position: relative;
@@ -9,7 +13,7 @@
 .section-label {
   color: white;
   font-size: 30px;
-  margin: 40px;
+  margin: 10px 40px;
   font-family: "Coustard", serif;
 }
 
@@ -20,12 +24,6 @@
 .input-field {
   width: 40%;
   position: relative;
-}
-
-.section-label {
-  color: white;
-  font-size: 30px;
-  margin: 40px;
 }
 
 @media only screen and (max-device-width: 480px) {
@@ -99,6 +97,17 @@
 }
 
 @media only screen and (min-width: 960px) {
+  .text-small {
+    font-size: 10px;
+  }
+
+  .section-label {
+    margin-top: 10%;
+    margin-bottom: 0;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
   .text-small {
     font-size: 10px;
   }
