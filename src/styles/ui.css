@@ -58,7 +58,6 @@ input {
 @media (min-width: 1025px) {
   .jumbotron {
     max-width: 100%;
-    margin: 0;
     height: 540px;
     background-color: #eee;
     background-position: center;
@@ -67,10 +66,10 @@ input {
   }
 }
 
-@media only screen and (max-device-width: 600px) {
+@media (min-width: 499px) and (max-width: 500px) {
   .jumbotron {
+    margin-top: 20px;
     max-width: 100%;
-    margin: 0;
     height: 250px;
     background-color: #eee;
     background-position: center;
@@ -78,12 +77,12 @@ input {
     position: relative;
   }
 }
-
 @media only screen and (max-device-width: 480px) {
   .jumbotron {
     max-width: 100%;
-    margin: 0;
     height: 200px;
+    margin-top: 50px;
+
     background-color: #eee;
     background-position: center;
     background-size: cover;
@@ -97,6 +96,7 @@ input {
   width: 100%;
   background: transparent no-repeat;
   background-size: cover;
+  /* height: 600px; */
 }
 
 video {
@@ -109,15 +109,9 @@ video {
   max-height: 540px;
   max-width: 100%;
   overflow: hidden;
-  /* position: absolute; */
+  position: absolute;
   top: 0;
   right: 0;
-}
-@media only screen and (max-device-width: 480px) {
-  .video-container {
-    width: 100%;
-    height: 200px;
-  }
 }
 
 .heading {
@@ -186,7 +180,7 @@ video {
     background-color: Transparent;
     position: absolute;
     left: 10%;
-    top: 35%;
+    bottom: 10%;
     width: 100px;
     height: 50px;
     color: white;
@@ -255,8 +249,12 @@ video {
 
 @media only screen and (min-width: 960px) {
   .slick-slider {
-    margin-bottom: -90px;
+    /* margin-bottom: -90px; */
   }
+}
+
+.slick-mobile {
+  margin: 25px;
 }
 
 h5 {
@@ -268,4 +266,10 @@ h5 {
   margin-left: 10px;
   font-family: "Crete Round", serif;
   font-size: 1.2em;
+}
+
+.left-section,
+.right-section {
+  padding-top: 15px;
+  padding-left: 30px;
 }

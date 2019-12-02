@@ -76,6 +76,7 @@ function NavigationMain({
     </Row>
   );
 }
+
 NavigationMain.propTypes = {
   leftSection: PropTypes.element,
   rightSection: PropTypes.element,

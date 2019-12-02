@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {ListGroup, ListGroupItem, ListGroupItemHeading} from "reactstrap";
+import {ListGroup, ListGroupItem, ListGroupItemHeading, Container} from "reactstrap";
 import {getMoviesInfo} from "../../../Apis/MovieApi";
 import {
   MdBook,
@@ -11,12 +11,16 @@ import {
   MdChildCare,
 } from "react-icons/md";
 import {FaAward, FaCalendarAlt, FaLanguage} from "react-icons/fa";
-import {GiSandsOfTime, GiFountainPen, GiDirectorChair} from "react-icons/gi";
+import {
+  GiSandsOfTime,
+  GiFountainPen,
+  GiDirectorChair,
+} from "react-icons/gi";
 import Error from "../../../Components/Alert/Error";
 
 export default class MovieDetails extends Component {
   state = {
-    movieInfo: {},
+    movieInfo: [],
     hasErrors: false,
     message: "Something went wrong, please refresh yours page or come back later",
   };
@@ -43,14 +47,21 @@ export default class MovieDetails extends Component {
   };
 
   onShowErrorMessage = () => {
-    this.setState({hasErrors: true});
+    this.setState({hasErrors: true, loading: false});
     setTimeout(this.onClearMessage, 5000);
   };
-
+  // movieInfo && Object.keys(movieInfo).length !== 0 ?
+  /* : (
+    <div>{hasErrors && <Error message={message} />}</div>
+    )*/
   render() {
     const {movieInfo, hasErrors, message} = this.state;
-    return movieInfo && Object.keys(movieInfo).length !== 0 ? (
+    return (
       <>
+      <Container>
+      {hasErrors && <Error message={message} />}
+      </Container>
+
         <ListGroup className="list-info">
           <ListGroupItemHeading>{movieInfo.Title}</ListGroupItemHeading>
           <ListGroupItem>
@@ -103,8 +114,6 @@ export default class MovieDetails extends Component {
           </ListGroupItem>
         </ListGroup>
       </>
-    ) : (
-      <div>{hasErrors && <Error message={message} />}</div>
     );
   }
 }

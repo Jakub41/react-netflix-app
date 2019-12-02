@@ -2,8 +2,6 @@ import {API_COMMENTS_URL, API_PASSWORD, API_USERNAME} from './ApisConst'
 
 class BasicApi {
   constructor () {
-    // const username = 'user25'
-    // const password = 'gX7HF4hYaYyJAzpt'
     this.token = btoa(API_USERNAME + ':' + API_PASSWORD)
     this.domain = API_COMMENTS_URL
 
